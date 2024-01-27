@@ -4,6 +4,7 @@
 
 from fcserver import FalconServer, App
 from PIL import Image
+import json
 from wsgiref.simple_server import make_server
 import pudb
 
@@ -22,12 +23,13 @@ class Server(FalconServer):
         self.save_data('aimg.png', img_a)
         img_b = self.decode_image(req, 'bimg')
         self.save_data('bimg.png', img_b)
+        resp.body = json.dumps({'aimg': 'is a numpy', 'bimg': 'is a image'})
 
-s = Server('/ding')
+s = Server()
 
 app = App()
 app.add_route('/ding', s)
 
 if __name__ == '__main__':
-    with make_server('127.0.0.1', 8088, app) as httpd:
+    with make_server('0.0.0.0', 8080, app) as httpd:
         httpd.serve_forever()

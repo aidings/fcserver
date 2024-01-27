@@ -7,10 +7,12 @@ import json
 from fcserver import FalconClient
 
 if __name__ == '__main__':
-    c = FalconClient('http://127.0.0.1:8088/ding', None)
+    c = FalconClient('http://127.0.0.1:8080/ding', None)
 
     c.push_file(cv2.imread('./demo.png'), 'aimg', is_img=False)
     c.push_file('./demo2.png', 'bimg')
     # print(files)
 
-    c.send(query={'test': [1, 2, 3]}, data={'a': [4, 5, 6]})
+    res = c.send(query={'test': [1, 2, 3]}, data={'a': [4, 5, 6]})
+    print(res)
+    print(res.json())

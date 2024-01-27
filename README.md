@@ -28,7 +28,9 @@ post image, numpy and json file or parameters
             img_b = self.decode_image(req, 'bimg')
             self.save_data('bimg.png', img_b)
 
-    s = Server('/ding')
+            resp.body = json.dumps('aimg': 'is a numpy', 'bimg': 'is a image')
+
+    s = Server()
 
     app = App()
     app.add_route('/ding', s)
@@ -54,3 +56,6 @@ post image, numpy and json file or parameters
    ```
 3. gunicorn(deploy the server)
 `gunicorn --workers=2 --bind 0.0.0.0:8088 demo:app`
+
+4. uwsgi(deploy the server)
+`uwsgi --ini uwsgi.ini`
